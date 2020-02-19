@@ -1,12 +1,28 @@
 import React, { Component } from 'react';
 
 import './NewPost.css';
+import axios from 'axios'
 
 class NewPost extends Component {
     state = {
         title: '',
         content: '',
         author: 'Max'
+    }
+
+    // post, need a second argument. That is the data that we need to send at the server.
+    // in this case we need to send a data from our state, we send a object of JS ES6 to the server
+    // because axios turn it tho string and JSON format.
+    postDataHandler = () => {
+        const post = {
+            title: this.state.title,
+            body: this.state.body,
+            author: this.state.author
+        };
+        axios.post('https://jsonplaceholder.typicode.com/posts', post )
+            .then (response => {
+                console.log(response)
+            })
     }
 
     render () {
@@ -22,7 +38,7 @@ class NewPost extends Component {
                     <option value="Max">Max</option>
                     <option value="Manu">Manu</option>
                 </select>
-                <button>Add Post</button>
+                <button onClick={this.postDataHandler}>Add Post</button>
             </div>
         );
     }
