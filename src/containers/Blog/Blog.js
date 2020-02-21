@@ -24,7 +24,7 @@ class Blog extends Component {
             const updatedPosts = post.map(post => {
                 return {
                     ...post,
-                    author: 'Julian'
+                    author: 'Julian' //i change the original author for Julian
                 }
             })
             this.setState({posts:updatedPosts})
