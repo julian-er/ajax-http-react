@@ -11,7 +11,8 @@ class Blog extends Component {
 
     state = {
         posts : [],
-        selectedPostId : null
+        selectedPostId : null,
+        error:false
     }
 
     //axios use promises of Js ES6
@@ -28,6 +29,10 @@ class Blog extends Component {
             })
             this.setState({posts:updatedPosts})
         })
+        .catch(error =>{
+            //console.log(error)
+            this.setState({error: true})
+        })
     }
 
     postSelectedHandler = (id) =>{
@@ -35,18 +40,19 @@ class Blog extends Component {
     }
 
     render () {
+            let post = <p style={{textAlign: 'center'}}>Something went wrong! The data can't be reached</p>;
 
-        let post = <p>Loading post... <br />  this action can be slow, that depends on your internet access</p>;
+            if(!this.state.error){
+                post = this.state.posts.map(post => {
+                    return <Post
+                    key={post.id} 
+                    title={post.title} 
+                    author={post.author}
+                    clicked={() => this.postSelectedHandler (post.id)}/>
+                })
+            
+            }
 
-        if (this.state.posts){
-            post = this.state.posts.map(post => {
-                return <Post
-                key={post.id} 
-                title={post.title} 
-                author={post.author}
-                clicked={() => this.postSelectedHandler (post.id)}/>
-            })}
-        
 
 
         return (
