@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+// import axios from 'axios' i comment this because now use my new axios whit the default settings 
+import axios from '../../axios'
 
 import Post from '../../components/Post/Post';
 import FullPost from '../../components/FullPost/FullPost';
@@ -17,7 +18,7 @@ class Blog extends Component {
 
     //axios use promises of Js ES6
     componentDidMount(){
-        axios.get('https://jsonplaceholder.typicode.com/posts')
+        axios.get('/posts')
         .then (response =>{
             //Now i can manage the data, i can slice o add some to response of te server
             const post = response.data.slice(0, 4) //only store 4 of the post for show in a section post 
@@ -30,7 +31,7 @@ class Blog extends Component {
             this.setState({posts:updatedPosts})
         })
         .catch(error =>{
-            //console.log(error)
+            console.log(error)
             this.setState({error: true})
         })
     }

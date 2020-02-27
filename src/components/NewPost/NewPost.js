@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import './NewPost.css';
-import axios from 'axios'
-
+// import axios from 'axios'
+import axios from '../../axios'
 class NewPost extends Component {
     state = {
         title: '',
@@ -19,7 +19,7 @@ class NewPost extends Component {
             body: this.state.body,
             author: this.state.author
         };
-        axios.post('https://jsonplaceholder.typicode.com/posts', post )
+        axios.post('/posts', post )
             .then (response => {
                 console.log(response)
             })
