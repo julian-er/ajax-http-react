@@ -10,9 +10,22 @@ class FullPost extends Component {
     }
 
     componentDidMount(){
-        console.log(this.props)
+        console.log(this.props);
+        this.loadData();
+       
+    }
+
+
+    // i need to implemetn componentDidUpdate because the component is mounted and so don't change 
+
+    componentDidUpdate(){
+        this.loadData();
+    }
+
+    loadData(){
         if(this.props.match.params.id){
-            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id) ){
+            // i need to compare with != because they are a string and number types or maybe use a +
+            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id) ){
                 axios.get('/posts/'+ this.props.match.params.id)
                     .then( response =>{
                         this.setState({loadedPost:response.data})
@@ -21,7 +34,6 @@ class FullPost extends Component {
             }
             
         }
-       
     }
 
     deletePostHandler = () =>{
@@ -33,7 +45,7 @@ class FullPost extends Component {
 
     render () {
         let post = <p style={{textAlign: 'center'}}>Please select a Post!</p>;
-        if (this.props.id){
+        if (this.props.match.params.id){
             post = <p style={{textAlign: 'center'}}>Loading...</p>
         }
         if (this.state.loadedPost){

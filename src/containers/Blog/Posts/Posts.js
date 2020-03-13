@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import axios from '../../../axios'
 import Post from '../../../components/Post/Post'
 import './Posts.css'
+import {Route} from 'react-router-dom'
+import FullPost from '../FullPost/FullPost';
+
+
 // import { Link } from 'react-router-dom'  adding this i can manage where need to go the posts with link
 
 
@@ -13,8 +17,8 @@ class Posts extends Component {
 
     postSelectedHandler = (id) =>{
         // this.setState({selectedPostId:id}) i use this when nav with links
-        //this.props.history.push({'/' + id}); this works too!
-        this.props.history.push({pathname: '/' + id}); // i can navigate programmatically using the history
+        //this.props.history.push({'/posts/' + id}); this works too!
+        this.props.history.push({pathname: '/posts/' + id}); // i can navigate programmatically using the history
     }
 
         //axios use promises of Js ES6
@@ -43,6 +47,7 @@ class Posts extends Component {
             if(!this.state.error){
                 post = this.state.posts.map(post => {
                     return <Post
+                    key={post.id}
                     title={post.title} 
                     author={post.author}
                     clicked={() => this.postSelectedHandler (post.id)}/>
@@ -53,7 +58,7 @@ class Posts extends Component {
 
                     // i don't use this form, but it's an option --- USING LINK
 
-                    // return <Link to={'/' + post.id} key={post.id} >
+                    // return <Link to={'/posts/' + post.id} key={post.id} >
                     // <Post
                     // title={post.title} 
                     // author={post.author}
@@ -62,10 +67,18 @@ class Posts extends Component {
                 })
             
             }
-        return (
-            <section className="Posts">
+        return (<div>
+                    <section className="Posts">
                     {post}
-            </section>
+                    </section>
+                    <Route 
+                    path={this.props.match.url + '/:id'}
+                    // path="/posts/:id" // generate dinamically a path whit Id, i need put here because the new-post is an id
+                    exact 
+                    component={FullPost} 
+                    />
+             </div>
+            
         )
     }
 }

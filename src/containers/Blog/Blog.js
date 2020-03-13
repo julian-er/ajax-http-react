@@ -11,10 +11,9 @@ import React, { Component } from 'react';
 
 
 import './Blog.css';
-import { Route, NavLink, Switch } from 'react-router-dom'
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom'
 import Posts from './Posts/Posts'
 import NewPost from '../Blog/NewPost/NewPost';
-import FullPost from './FullPost/FullPost';
 class Blog extends Component {
 
     render () {
@@ -29,11 +28,11 @@ class Blog extends Component {
                         <ul>
                             <li>
                             {/* i need to use a Link tag because a tag reload the page, and this is how i can say to react for render */}
-                                <NavLink to="/" 
+                                <NavLink to="/posts/" 
                                 exact 
                                 activeClassName="active" // this is a reference, but i can change the css whit that
                                 activeStyle={{}} // i can use inline styles
-                                >Home</NavLink> 
+                                >Posts</NavLink> 
                             </li>
                             <li>
                                 <NavLink to={{
@@ -48,13 +47,10 @@ class Blog extends Component {
                 </header>     
                 {/* <Route  path="/" exact render={()=><Posts></Posts>} />        i can do that but is better use  component  */}
                 {/* i can use /post/ to select where render my page instead Switch, switch stops when find the route */}
-                <Route path="/" exact component={Posts} />
                 <Switch>
                     <Route path="/new-post" exact component={NewPost} />
-                    <Route path="/:id" // generate dinamically a path whit Id, i need put here because the new-post is an id
-                    exact 
-                    component={FullPost} 
-                    />
+                    <Route path="/posts" component={Posts} />
+                    <Redirect from="/" to="/posts" />
                 </Switch>
             </div>
         );

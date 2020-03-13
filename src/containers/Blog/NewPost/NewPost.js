@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 
 import './NewPost.css';
-// import axios from 'axios'
 import axios from '../../../axios'
+import { Redirect } from 'react-router-dom'
 class NewPost extends Component {
     state = {
         title: '',
         content: '',
-        author: 'Max'
+        author: 'Max',
+        submitted:false,
     }
 
     // post, need a second argument. That is the data that we need to send at the server.
@@ -22,12 +23,30 @@ class NewPost extends Component {
         axios.post('/posts', post )
             .then (response => {
                 console.log(response)
+                
+                this.props.history.push('/posts') //this adds a page to stack and we can the back button to go back
+                
+                // this.setState({
+                //     submitted:true
+                // });
             })
     }
 
     render () {
+
+        // using this redirect we can't go back because this replace the path
+
+        // let redirected = null;
+
+        // if (this.state.submitted){
+        //     redirected = <Redirect to="/posts" />;
+        // }
+
+        // using this redirect we can't go back because this replace the path
+        
         return (
             <div className="NewPost">
+                {/* {redirected} */}
                 <h1>Add a Post</h1>
                 <label>Title</label>
                 <input type="text" value={this.state.title} onChange={(event) => this.setState({title: event.target.value})} />
