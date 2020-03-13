@@ -16,6 +16,11 @@ import Posts from './Posts/Posts'
 import NewPost from '../Blog/NewPost/NewPost';
 class Blog extends Component {
 
+    state={
+        auth:false,
+    }
+
+
     render () {
             
 
@@ -48,7 +53,7 @@ class Blog extends Component {
                 {/* <Route  path="/" exact render={()=><Posts></Posts>} />        i can do that but is better use  component  */}
                 {/* i can use /post/ to select where render my page instead Switch, switch stops when find the route */}
                 <Switch>
-                    <Route path="/new-post" exact component={NewPost} />
+                    {this.state.auth ? <Route path="/new-post" exact component={NewPost} />: null}
                     <Route path="/posts" component={Posts} />
                     <Redirect from="/" to="/posts" />
                 </Switch>
