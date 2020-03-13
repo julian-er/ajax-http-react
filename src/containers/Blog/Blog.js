@@ -17,7 +17,7 @@ import NewPost from '../Blog/NewPost/NewPost';
 class Blog extends Component {
 
     state={
-        auth:false,
+        auth:true,
     }
 
 
@@ -55,7 +55,8 @@ class Blog extends Component {
                 <Switch>
                     {this.state.auth ? <Route path="/new-post" exact component={NewPost} />: null}
                     <Route path="/posts" component={Posts} />
-                    <Redirect from="/" to="/posts" />
+                    <Route render={()=><h1>Page Not Found</h1> }/>
+                    {/* <Redirect from="/" to="/posts" /> */}
                 </Switch>
             </div>
         );
