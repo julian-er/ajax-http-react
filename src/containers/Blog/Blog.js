@@ -23,6 +23,11 @@ const AsyncNewPost= AsyncComponent(()=>{
     return import('../Blog/NewPost/NewPost');
 })
 
+// React 16.6 or > => 
+// const Posts = React.lazy(()=> import('../Blog/NewPost/NewPost'))
+// import {Suspense} from React
+// and in the route change component for render method 
+// <Route path="/posts" render={()=><Suspense><Posts/></Suspense>} />
 
 class Blog extends Component {
 
