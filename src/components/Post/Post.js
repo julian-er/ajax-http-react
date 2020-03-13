@@ -1,4 +1,5 @@
 import React from 'react';
+//import {withRouter} from 'react-router-dom';  i can use that for passing all my props from posts
 
 import './Post.css';
 
@@ -12,3 +13,5 @@ const post = (props) => (
 );
 
 export default post;
+
+// export default withRouter(post); i can use that for passing all my props from posts
