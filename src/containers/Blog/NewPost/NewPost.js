@@ -11,6 +11,10 @@ class NewPost extends Component {
         submitted:false,
     }
 
+    componentDidMount(){
+        // if unauth => this.props.history.replace('/posts');
+    }
+
     // post, need a second argument. That is the data that we need to send at the server.
     // in this case we need to send a data from our state, we send a object of JS ES6 to the server
     // because axios turn it tho string and JSON format.
@@ -43,7 +47,7 @@ class NewPost extends Component {
         // }
 
         // using this redirect we can't go back because this replace the path
-        
+
         return (
             <div className="NewPost">
                 {/* {redirected} */}
