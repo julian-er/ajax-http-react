@@ -13,7 +13,17 @@ import React, { Component } from 'react';
 import './Blog.css';
 import { Route, NavLink, Switch, Redirect } from 'react-router-dom'
 import Posts from './Posts/Posts'
-import NewPost from '../Blog/NewPost/NewPost';
+import AsyncComponent from '../../hoc/AsyncComponent'
+
+// i need to change this import because now import that dinamically when i need it
+// import NewPost from '../Blog/NewPost/NewPost';
+// in otherwise this component be loaded when the page starts. now in a function we need to tell the app we need to load
+
+const AsyncNewPost= AsyncComponent(()=>{
+    return import('../Blog/NewPost/NewPost');
+})
+
+
 class Blog extends Component {
 
     state={
@@ -53,7 +63,7 @@ class Blog extends Component {
                 {/* <Route  path="/" exact render={()=><Posts></Posts>} />        i can do that but is better use  component  */}
                 {/* i can use /post/ to select where render my page instead Switch, switch stops when find the route */}
                 <Switch>
-                    {this.state.auth ? <Route path="/new-post" exact component={NewPost} />: null}
+                    {this.state.auth ? <Route path="/new-post" exact component={AsyncNewPost} />: null}
                     <Route path="/posts" component={Posts} />
                     <Route render={()=><h1>Page Not Found</h1> }/>
                     {/* <Redirect from="/" to="/posts" /> */}
