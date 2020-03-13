@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from '../../../axios'
 import Post from '../../../components/Post/Post'
 import './Posts.css'
-import { Link } from 'react-router-dom' // adding this i can manage where need to go the posts
+// import { Link } from 'react-router-dom'  adding this i can manage where need to go the posts with link
 
 
 class Posts extends Component {
@@ -12,7 +12,9 @@ class Posts extends Component {
     }
 
     postSelectedHandler = (id) =>{
-        this.setState({selectedPostId:id})
+        // this.setState({selectedPostId:id}) i use this when nav with links
+        //this.props.history.push({'/' + id}); this works too!
+        this.props.history.push({pathname: '/' + id}); // i can navigate programmatically using the history
     }
 
         //axios use promises of Js ES6
@@ -40,12 +42,23 @@ class Posts extends Component {
 
             if(!this.state.error){
                 post = this.state.posts.map(post => {
-                    return <Link to={'/' + post.id} key={post.id} >
-                    <Post
+                    return <Post
                     title={post.title} 
                     author={post.author}
                     clicked={() => this.postSelectedHandler (post.id)}/>
-                    </Link>
+                    
+
+
+
+
+                    // i don't use this form, but it's an option --- USING LINK
+
+                    // return <Link to={'/' + post.id} key={post.id} >
+                    // <Post
+                    // title={post.title} 
+                    // author={post.author}
+                    // clicked={() => this.postSelectedHandler (post.id)}/>
+                    // </Link>
                 })
             
             }
